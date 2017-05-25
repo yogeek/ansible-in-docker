@@ -1,0 +1,20 @@
+# install-docker-playbook.yml
+---
+- hosts: aws
+
+  roles:
+    - install-docker-ce
+
+  tasks:  
+    - name: Adding existing user '{{ user }}' to group docker 
+      user: 
+        name='{{ user }}'
+        groups=docker
+        append=yes
+      become: true
+
+    - name: Running '{{ docker-image }}' container
+      docker_container:
+        name: '{{ dockercontainer }}'
+        image: '{{ dockerimage }}'
+

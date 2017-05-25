@@ -1,0 +1,5 @@
+---
+# tasks file for ansible role install-docker-ce
+
+- include: main-CentOS.yml
+  when: ansible_distribution == "RedHat" and ansible_distribution_major_version > '6'

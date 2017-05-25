@@ -1,0 +1,20 @@
+FROM williamyeh/ansible:centos7
+
+RUN yum -y install epel-release           && \
+    \
+    \
+    echo "===> Installing docker-py for ansible docker modules..."  && \
+    yum install -y python34 && \
+    curl -O https://bootstrap.pypa.io/get-pip.py && \
+    /usr/bin/python3.4 get-pip.py && \
+    rm -f get-pip.py && \
+    ln -sf /usr/bin/python3.4 /usr/bin/python && \
+    # hack to fix yum issue with python3
+    sed -i 's%python%python2%' /usr/bin/yum && \
+	yum clean all
+
+COPY requirements.txt /tmp
+RUN pip install -r /tmp/requirements.txt
+
+ENTRYPOINT ["ansible"]
+CMD ["--version"]

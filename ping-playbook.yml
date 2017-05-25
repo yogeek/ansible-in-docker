@@ -1,0 +1,6 @@
+# ping-playbook.yml
+---
+- hosts: aws
+  tasks:
+  - name: ping aws
+    ping:
